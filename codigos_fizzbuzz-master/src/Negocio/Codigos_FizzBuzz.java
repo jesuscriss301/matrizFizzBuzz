@@ -26,7 +26,6 @@ public class Codigos_FizzBuzz {
      */
     public Codigos_FizzBuzz(int i, int n, int m) {
         
-                // :)
     }
     
     public int[] patirNumeros(int i, int m){
@@ -50,6 +49,22 @@ public class Codigos_FizzBuzz {
             }
     return numeros;
     }
+    
+    public String getFizzbuzz(int i){ 
+	String msg = "";
+        if (i<=0)
+	   throw new RuntimeException("Invalid data");
+        if (!(i % 3 == 0 || i % 5 == 0))
+            return ""+i;
+        else{
+               if (i % 3 == 0)
+                 msg = "FIZZ";
+               if (i % 5 == 0) 
+                 msg += "BUZZ";
+        }
+	return msg;
+        }
+
 
     public char[][] getMatrizFizzBuzz() {
         return matrizFizzBuzz;
