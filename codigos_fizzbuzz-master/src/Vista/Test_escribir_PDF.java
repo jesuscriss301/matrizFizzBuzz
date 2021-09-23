@@ -18,7 +18,7 @@ import java.io.IOException;
 
 /**
  *
- * @author madar
+ * @author jesusmanuelcp
  */
 public class Test_escribir_PDF {
     public static void main(String[] args) throws FileNotFoundException, DocumentException, IOException {
