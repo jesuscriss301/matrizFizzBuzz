@@ -7,7 +7,7 @@ package Negocio;
 
 /**
  * Plantilla inicial códigos de FizzBuzz
- * @author madarme
+ * @author jesusManuelcp
  */
 public class Codigos_FizzBuzz {
     
@@ -25,7 +25,15 @@ public class Codigos_FizzBuzz {
      * @param m particiones
      */
     public Codigos_FizzBuzz(int i, int n, int m) {
-        
+        matrizFizzBuzz= new char[n+1][];
+        int []numeros;
+        int j , aux = i;
+        for (j = 0; aux <= (i+n); j++) {
+            numeros = this.patirNumeros(aux, m);
+            this.matrizFizzBuzz[j]= this.getFizzbuzz(numeros);
+            
+            aux++;
+        }
     }
     
     public int[] patirNumeros(int i, int m){
@@ -50,24 +58,40 @@ public class Codigos_FizzBuzz {
     return numeros;
     }
     
-    public String getFizzbuzz(int i){ 
-	String msg = "";
-        if (i<=0)
+    public char[] getFizzbuzz(int []i){ 
+        String msg = "";
+        if (i.equals(null))
 	   throw new RuntimeException("Invalid data");
-        if (!(i % 3 == 0 || i % 5 == 0))
-            return ""+i;
+        for (int j = 0; j < i.length; j++) {
+        
+        if (!(i[j] % 3 == 0 || i[j] % 5 == 0 )|| i[j] == 0)
+            msg += ""+i[j];
         else{
-               if (i % 3 == 0)
-                 msg = "FIZZ";
-               if (i % 5 == 0) 
+               if (i[j] % 3 == 0)
+                 msg += "FIZZ";
+               if (i[j] % 5 == 0) 
                  msg += "BUZZ";
         }
-	return msg;
+        }
+	return msg.toCharArray();
         }
 
 
     public char[][] getMatrizFizzBuzz() {
         return matrizFizzBuzz;
+    }
+
+    @Override
+    public String toString() {
+        String msg="";
+        for (int i = 0; i < this.matrizFizzBuzz.length; i++) {
+            msg += "\n"+i;
+            for (int j = 0; j < this.matrizFizzBuzz[i].length; j++) {
+                msg += ""+ this.matrizFizzBuzz[i][j]+ "\t";
+            }
+        }
+        
+        return msg;
     }
     
     

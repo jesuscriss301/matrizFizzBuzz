@@ -34,9 +34,9 @@ public class Test_escribir_PDF {
          documento.add(paragraphHello);
          documento.close();*/
         
-        Codigos_FizzBuzz m= new   Codigos_FizzBuzz();
-        m.patirNumeros(563846, 2);
+        Codigos_FizzBuzz m= new   Codigos_FizzBuzz(42949672, 3 , 2);
         
+        System.out.println(m.toString());
         
     }
     
