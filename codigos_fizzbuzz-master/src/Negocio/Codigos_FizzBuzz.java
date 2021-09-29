@@ -14,29 +14,27 @@ public class Codigos_FizzBuzz {
     
     private char [][]matrizFizzBuzz;
 
-    public Codigos_FizzBuzz() {
-    }
-    
-    
     /**
-     * Constructor para códigos
+     * Constructor para códigoss
      * @param i límite inicial 
      * @param n límite final
      * @param m particiones
      */
     public Codigos_FizzBuzz(int i, int n, int m) {
-        matrizFizzBuzz= new char[n+1][];
+        if (m <= 0 || n < 0 || i < 0)
+	   throw new RuntimeException("Datos invalidos, ingrese valores mayores a cero");
+
+        this.matrizFizzBuzz= new char[n+1][];
         int []numeros;
         int j , aux = i;
         for (j = 0; aux <= (i+n); j++) {
             numeros = this.patirNumeros(aux, m);
             this.matrizFizzBuzz[j]= this.getFizzbuzz(numeros);
-            
-            aux++;
+            aux++;     
         }
     }
     
-    public int[] patirNumeros(int i, int m){
+    private int[] patirNumeros(int i, int m){
     
         int a = String.valueOf(i).length();
         int []numeros;
@@ -58,20 +56,20 @@ public class Codigos_FizzBuzz {
     return numeros;
     }
     
-    public char[] getFizzbuzz(int []i){ 
+    private char[] getFizzbuzz(int []i){ 
         String msg = "";
-        if (i.equals(null))
+        if (i == null)
 	   throw new RuntimeException("Invalid data");
         for (int j = 0; j < i.length; j++) {
         
-        if (!(i[j] % 3 == 0 || i[j] % 5 == 0 )|| i[j] == 0)
-            msg += ""+i[j];
-        else{
+            if (!(i[j] % 3 == 0 || i[j] % 5 == 0 )|| i[j] == 0)
+                msg += ""+i[j];
+            else{
                if (i[j] % 3 == 0)
                  msg += "FIZZ";
                if (i[j] % 5 == 0) 
                  msg += "BUZZ";
-        }
+            }
         }
 	return msg.toCharArray();
         }
@@ -81,6 +79,21 @@ public class Codigos_FizzBuzz {
         return matrizFizzBuzz;
     }
 
+    public char getMatrizFizzBuzz(int i,int j) {
+        return matrizFizzBuzz[i][j];
+    }
+    public int getColumnas() {
+        int columnas=0;
+        for (char[] matrizFizzBuzz1 : this.matrizFizzBuzz) {
+            if (matrizFizzBuzz1.length > columnas) {
+                columnas = matrizFizzBuzz1.length;       
+            }
+        }
+        return columnas;
+    }
+    
+
+    
     @Override
     public String toString() {
         String msg="";
