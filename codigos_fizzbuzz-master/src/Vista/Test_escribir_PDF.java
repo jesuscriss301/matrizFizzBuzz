@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Negocio.Atributos;
 import Negocio.Codigos_FizzBuzz;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -29,18 +30,55 @@ public class Test_escribir_PDF {
     public static void main(String[] args) throws FileNotFoundException, DocumentException, IOException {
       
         try{
-        Codigos_FizzBuzz m= new   Codigos_FizzBuzz(42949672, 3 , 2);
+        Atributos imn = new Atributos(151515, 3, 2);    
+        Codigos_FizzBuzz m= new   Codigos_FizzBuzz(imn);
         
         //System.out.println(m.toString());
         Document documento = new Document();
         FileOutputStream ficheroPdf = new FileOutputStream("src/pdf/ficheroSalida.pdf");
         PdfWriter.getInstance(documento,ficheroPdf);
         documento.open();
-        Paragraph paragraphHello = new Paragraph("si i= \t , m= \t y n=\t");
+        
+        Paragraph paragraphHello = new Paragraph(imn.toString());
+        Paragraph espacio = new Paragraph("\n \n \n");
+        paragraphHello.add(espacio);
          paragraphHello.setAlignment(Element.ALIGN_JUSTIFIED);
          documento.add(paragraphHello);
-         
-         //Añadimos una tabla de 7 columnas. 
+        
+        PdfPTable tabla1= new PdfPTable(3);
+        tabla1.setWidthPercentage(80);
+        
+        Paragraph columna1 = new Paragraph("I");
+        columna1.getFont().setStyle(Font.BOLD);
+        columna1.getFont().setSize(9);
+        columna1.setAlignment(Element.ALIGN_CENTER); //aquí
+        tabla1.addCell(columna1);
+        
+        Paragraph columna2 = new Paragraph("numeros creados");
+        columna1.getFont().setStyle(Font.BOLD);
+        columna1.getFont().setSize(9);
+        columna1.setAlignment(Element.ALIGN_CENTER); //aquí
+        tabla1.addCell(columna2);
+        
+        Paragraph columna3 = new Paragraph("Numeros_fizzBuzz");
+        columna1.getFont().setStyle(Font.BOLD);
+        columna1.getFont().setSize(9);
+        columna1.setAlignment(Element.ALIGN_CENTER); //aquí
+        tabla1.addCell(columna3);
+        
+
+        String [][]base =  m.tablaBase(imn);
+            //int i = 0; i < base.length; i++
+            for (String[] base1 : base) {
+            for (String base11 : base1) {
+                tabla1.addCell(base11);
+            }
+            }
+        
+        documento.add(tabla1);   
+        documento.add(espacio);
+        
+         //Añadimos una tabla 
         PdfPTable tabla = new PdfPTable(m.getColumnas()); 
         //Datos de porcentaje a la tabla (tamaño ancho).
         tabla.setWidthPercentage(100);
@@ -63,6 +101,12 @@ public class Test_escribir_PDF {
 
          //Añadimos la tabla "tabla" al documento "documento".
          documento.add(tabla);   
+         //identificamos el tamaño de la matriz
+         int filas= imn.getN()+1;
+         int columnas= m.getColumnas();
+         Paragraph dimenciones = new Paragraph(filas+"x"+columnas);
+         documento.add(dimenciones);
+         
          //Cerramos el documento.
          documento.close();
          //Cerramos el writer.

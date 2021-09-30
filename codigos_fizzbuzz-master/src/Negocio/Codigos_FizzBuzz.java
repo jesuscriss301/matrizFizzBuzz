@@ -5,6 +5,8 @@
  */
 package Negocio;
 
+import java.util.Arrays;
+
 /**
  * Plantilla inicial códigos de FizzBuzz
  * @author jesusManuelcp
@@ -28,13 +30,44 @@ public class Codigos_FizzBuzz {
         int []numeros;
         int j , aux = i;
         for (j = 0; aux <= (i+n); j++) {
-            numeros = this.patirNumeros(aux, m);
-            this.matrizFizzBuzz[j]= this.getFizzbuzz(numeros);
+            numeros = this.partirNumeros(aux, m);
+            this.matrizFizzBuzz[j]= this.getFizzbuzz(numeros).toCharArray();
+            aux++;     
+        }
+    }
+
+    public Codigos_FizzBuzz(Atributos inm) {
+        int i= inm.getI();
+        int m= inm.m;
+        int n= inm.getN();
+        if (m <= 0 || n < 0 || i < 0)
+	   throw new RuntimeException("Datos invalidos, ingrese valores mayores a cero");
+
+        this.matrizFizzBuzz= new char[n+1][];
+        int []numeros;
+        int j , aux = i;
+        for (j = 0; aux <= (i+n); j++) {
+            numeros = this.partirNumeros(aux, m);
+            this.matrizFizzBuzz[j]= this.getFizzbuzz(numeros).toCharArray();
             aux++;     
         }
     }
     
-    private int[] patirNumeros(int i, int m){
+    public String[][] tablaBase(Atributos x){
+        int a = x.getI()+x.getN();
+    String [][] base = new String[x.getN()+1][3];
+    int auxi=x.getI();
+        for (int i = 0; i < base.length; i++) {
+            int []numero = this.partirNumeros(auxi,x.getM());
+            base[i][0] = x.getI()+i+ "";
+            base[i][1] = Arrays.toString(numero);
+            base[i][2] = this.getFizzbuzz(numero);
+            auxi++;
+        }
+    return base; 
+    }
+    
+    public int[] partirNumeros(int i, int m){
     
         int a = String.valueOf(i).length();
         int []numeros;
@@ -56,7 +89,7 @@ public class Codigos_FizzBuzz {
     return numeros;
     }
     
-    private char[] getFizzbuzz(int []i){ 
+    private String getFizzbuzz(int []i){ 
         String msg = "";
         if (i == null)
 	   throw new RuntimeException("Invalid data");
@@ -71,7 +104,7 @@ public class Codigos_FizzBuzz {
                  msg += "BUZZ";
             }
         }
-	return msg.toCharArray();
+	return msg;
         }
 
 
