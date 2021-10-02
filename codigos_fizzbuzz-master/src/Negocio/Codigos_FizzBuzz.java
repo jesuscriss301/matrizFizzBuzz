@@ -27,7 +27,7 @@ public class Codigos_FizzBuzz {
 	   throw new RuntimeException("Datos invalidos, ingrese valores mayores a cero");
 
         this.matrizFizzBuzz= new char[n+1][];
-        int []numeros;
+        int []numeros; 
         int j , aux = i;
         for (j = 0; aux <= (i+n); j++) {
             numeros = this.partirNumeros(aux, m);
@@ -38,7 +38,7 @@ public class Codigos_FizzBuzz {
 
     public Codigos_FizzBuzz(Atributos inm) {
         int i= inm.getI();
-        int m= inm.m;
+        int m= inm.getM();
         int n= inm.getN();
         if (m <= 0 || n < 0 || i < 0)
 	   throw new RuntimeException("Datos invalidos, ingrese valores mayores a cero");

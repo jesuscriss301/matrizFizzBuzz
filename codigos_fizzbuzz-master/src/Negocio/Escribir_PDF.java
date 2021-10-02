@@ -1,13 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Vista;
+package Negocio;
 
-import Negocio.Atributos;
-import Negocio.Codigos_FizzBuzz;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -17,34 +15,43 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
- * @author jesusmanuelcp
+ * @author jesus
  */
-public class Test_escribir_PDF {
-    public static void main(String[] args) throws FileNotFoundException, DocumentException, IOException {
-      
-        try{
-        Atributos imn = new Atributos(1556738, 10, 2);    
-        Codigos_FizzBuzz m= new   Codigos_FizzBuzz(imn);
+public final class    Escribir_PDF {
+
+    Atributos imn;
+    Codigos_FizzBuzz m;
+
+    public Escribir_PDF(int i, int n, int m) throws FileNotFoundException, DocumentException, IOException,RuntimeException,NumberFormatException{
+     this.imn= new Atributos(i,n,m);
+     this.m= new Codigos_FizzBuzz(imn);
+     this.escribir();
+    }
+    
+    
+    public void escribir() throws FileNotFoundException, DocumentException, IOException, RuntimeException, NumberFormatException{
         
-        //System.out.println(m.toString());
+            //System.out.println(m.toString());
         Document documento = new Document();
-        FileOutputStream ficheroPdf = new FileOutputStream("src/pdf/ficheroSalida.pdf");
+        FileOutputStream ficheroPdf = new FileOutputStream("src/pdf/respuestas.pdf");
         PdfWriter.getInstance(documento,ficheroPdf);
         documento.open();
         
-        Paragraph paragraphHello = new Paragraph(imn.toString());
+        Chunk paragraphHello = new  Chunk(imn.toString());
         Paragraph espacio = new Paragraph("\n \n \n");
-        paragraphHello.add(espacio);
-         paragraphHello.setAlignment(Element.ALIGN_JUSTIFIED);
-         documento.add(paragraphHello);
+        paragraphHello.setBackground(BaseColor.YELLOW);
         
+         documento.add(paragraphHello);
+         documento.add(espacio);
         PdfPTable tabla1= new PdfPTable(3);
         tabla1.setWidthPercentage(80);
         
@@ -77,7 +84,15 @@ public class Test_escribir_PDF {
         
         documento.add(tabla1);   
         documento.add(espacio);
+        Font font =new Font();
+        font.setSize(14);
         
+        Chunk titulo= new Chunk("Matriz char de los numeros FizzBuzz",font);
+        titulo.setBackground(BaseColor.YELLOW);
+        Paragraph alineacion = new Paragraph(titulo);
+        alineacion.setAlignment(Element.ALIGN_CENTER);
+        alineacion.add(espacio);  
+        documento.add(alineacion);
          //Añadimos una tabla 
         PdfPTable tabla = new PdfPTable(m.getColumnas()); 
         //Datos de porcentaje a la tabla (tamaño ancho).
@@ -109,13 +124,10 @@ public class Test_escribir_PDF {
          
          //Cerramos el documento.
          documento.close();
-         //Cerramos el writer.
-         //writer.close();
-         documento.close();
-         }
-         catch(RuntimeException e){
-           System.err.println(e.getMessage());
-            }
+          File objetofile = new File ("src/pdf/respuestas.pdf");
+          Desktop.getDesktop().open(objetofile);
+        
     }
     
+  
 }
